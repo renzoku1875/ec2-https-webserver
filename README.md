@@ -7,7 +7,9 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ---
 
-## 🛠 開発環境
+## 🔹 手動構築構成（LPICスキル活用）
+
+### 🛠 開発環境
 
 * Amazon EC2（Amazon Linux 2023）
 * Apache（Webサーバ）
@@ -20,10 +22,10 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ---
 
-## 🌐 サイトURL
+### 🌐 サイトURL
 
 * [https://mytest-portfolio.xyz](https://mytest-portfolio.xyz)
-* [https://mytest-portfolio.xyz/secret（Basic認証あり）](https://mytest-portfolio.xyz/secret（Basic認証あり）)
+* [https://mytest-portfolio.xyz/secret（Basic認証あり）](https://mytest-portfolio.xyz/secret)
 
 ---
 
@@ -35,7 +37,7 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ---
 
-## 🔐 セキュリティの工夫
+### 🔐 セキュリティの工夫
 
 * HTTPアクセスはすべてHTTPSへ自動リダイレクト
 * `.htpasswd` を使って特定ページにログイン制限を設定
@@ -44,14 +46,14 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ---
 
-## 📊 アクセスログの見える化
+### 📊 アクセスログの見える化
 
 `goaccess` を使って、ApacheのアクセスログをHTMLでグラフ化しました。
 Webブラウザからアクセス解析の可視化が可能です。
 
 ---
 
-## 📁 フォルダ構成（設定・Web・セキュリティ）
+### 📁 フォルダ構成（設定・Web・セキュリティ）
 
 ```plaintext
 /var/www/html/
@@ -77,3 +79,31 @@ Webブラウザからアクセス解析の可視化が可能です。
 ```
 
 ---
+
+## ⚙️ 自動化構成（Ansible + Route 53）
+
+Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理しています。
+
+### 🛠 使用技術
+
+* **Ansible**：Apache、fail2ban、goaccess、.htpasswd を自動セットアップ
+* **Route 53**：Aレコード・NS・SOAなどを自動で管理し、ドメインとEC2を紐づけ
+
+### ✅ 自動化で実現できること
+
+* Apacheの自動インストール・HTTPS対応（Let's Encrypt）
+* fail2banの導入と有効化
+* Basic認証の設定（.htpasswd生成）
+* goaccessをソースからビルドして可視化ページ生成
+* HTTP→HTTPS リダイレクト設定
+
+### 📁 ansibleディレクトリ構成例
+
+```plaintext
+ansible_ec2_setup/
+├── site.yml                    # メインプレイブック
+├── tasks/
+│   ├── setup_goaccess.yml      # goaccess関連設定
+│   └── setup_https_redirect.yml # HTTPSリダイレクト
+└── files/                      # 必要ファイル保管場所
+```

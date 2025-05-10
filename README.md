@@ -67,7 +67,7 @@ Webブラウザからアクセス解析の可視化が可能です。
 
 /etc/httpd/
 ├── conf/               # Apacheのメイン設定（httpd.conf）
-├── conf.d/             # certbot の追加設定（httpd-le-ssl.conf(443),httpd-redirect.conf (80)）
+├── conf.d/             # HTTPSバーチャルホスト設定（httpd-le-ssl.conf: 443, httpd-redirect.conf: 80）
 ├── conf.modules.d/     # Apacheモジュール構成
 
 /etc/letsencrypt/

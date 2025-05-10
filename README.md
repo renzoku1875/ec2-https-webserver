@@ -14,7 +14,7 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 * Amazon EC2（Amazon Linux 2023）
 * Apache（Webサーバ）
 * お名前.com で取得した独自ドメイン
-* Certbot（Let's Encrypt）でHTTPS化 → cronで自動更新済み
+* Certbot（Let's Encrypt）でHTTPS化 → 自動更新はcronで実施
 * Basic認証（.htpasswd）でログイン制限 → `/secret` のみに適用
 * fail2ban（SSHの攻撃対策）→ 5回ログイン失敗で一時BAN
 * goaccess（アクセスログのグラフ表示）
@@ -45,7 +45,7 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 * fail2banでSSH攻撃対策（5回失敗でIPブロック）
 * セキュリティグループ設定：22, 80, 443番ポートのみ開放
 * `/etc/ssh/sshd_config` にて `PermitRootLogin no` 設定済み（rootログイン無効化）
-* パスワードログイン無効化（`PasswordAuthentication no`）で鍵認証のみに制限
+* パスワードログインを無効化（`PasswordAuthentication no`）し、鍵認証のみに限定
 * IP直打ちアクセスは403で拒否（FQDNアクセスのみ許可）
 
 ---
@@ -90,7 +90,7 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 
 ### 🛠 使用技術
 
-* **Ansible**：Apache、fail2ban、goaccess、.htpasswd を自動セットアップ
+* **Ansible**：Apache／fail2ban／goaccess／Basic認証を自動構成
 * **Route 53**：Aレコード・NS・SOAなどを自動で管理し、ドメインとEC2を紐づけ
 
 ### ✅ 自動化で実現できること

@@ -45,6 +45,7 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 * セキュリティグループ設定：22, 80, 443番ポートのみ開放
 * `/etc/ssh/sshd_config` にて `PermitRootLogin no` 設定済み（rootログイン無効化）
 * パスワードログイン無効化（`PasswordAuthentication no`）で鍵認証のみに制限
+* IP直打ちアクセスは403で拒否（FQDNアクセスのみ許可）
 
 ---
 

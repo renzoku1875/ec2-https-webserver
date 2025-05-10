@@ -43,6 +43,8 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 * `.htpasswd` を使って特定ページにログイン制限を設定
 * fail2banでSSH攻撃対策（5回失敗でIPブロック）
 * セキュリティグループ設定：22, 80, 443番ポートのみ開放
+* `/etc/ssh/sshd_config` にて `PermitRootLogin no` 設定済み（rootログイン無効化）
+* パスワードログイン無効化（`PasswordAuthentication no`）で鍵認証のみに制限
 
 ---
 

@@ -1,15 +1,23 @@
-- name: Apache HTTP → HTTPS リダイレクト設定
+- name: Apache HTTP → HTTPS リダイレクト（IP直打ち拒否付き）
   blockinfile:
     path: /etc/httpd/conf/httpd.conf
     insertafter: '^IncludeOptional conf\.d/\*\.conf'
     block: |
       <VirtualHost *:80>
           ServerName {{ domain_name }}
-          Redirect permanent / https://{{ domain_name }}/
+
+          <If "%{HTTP_HOST} == '{{ domain_name }}'">
+              Redirect permanent / https://{{ domain_name }}/
+          </If>
+
+          <Else>
+              Redirect 403 /
+          </Else>
       </VirtualHost>
 
 - name: Apache 再起動（HTTPSリダイレクト設定後）
   systemd:
     name: httpd
     state: restarted
+
 

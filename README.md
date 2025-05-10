@@ -25,7 +25,7 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 ### 🌐 サイトURL
 
 * [https://mytest-portfolio.xyz](https://mytest-portfolio.xyz)
-* [https://mytest-portfolio.xyz/secret（Basic認証あり）](https://mytest-portfolio.xyz/secret)
+* [https://mytest-portfolio.xyz/secret](https://mytest-portfolio.xyz/secret)　- （Basic認証あり）
 * [https://mytest-portfolio.xyz/report.html](https://mytest-portfolio.xyz/report.html) - サンプルレポートページ
   
 ---

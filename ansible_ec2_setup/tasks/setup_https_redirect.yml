@@ -1,0 +1,15 @@
+- name: Apache HTTP → HTTPS リダイレクト設定
+  blockinfile:
+    path: /etc/httpd/conf/httpd.conf
+    insertafter: '^IncludeOptional conf\.d/\*\.conf'
+    block: |
+      <VirtualHost *:80>
+          ServerName {{ domain_name }}
+          Redirect permanent / https://{{ domain_name }}/
+      </VirtualHost>
+
+- name: Apache 再起動（HTTPSリダイレクト設定後）
+  systemd:
+    name: httpd
+    state: restarted
+

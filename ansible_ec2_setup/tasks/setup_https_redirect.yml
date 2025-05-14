@@ -11,7 +11,7 @@
 - name: Apache 再起動（HTTPSリダイレクト設定後）
   systemd:
     name: httpd
-    state: restarte
+    state: restarted
    
 - name: 確認用ログ出力
   shell: echo "GitHub Actions test success" > /tmp/deploy_check.log

@@ -108,6 +108,8 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 
 📄 [▶ Ansible 実行ログを見る](./ansible-output.txt)
 
+---
+
 ### 📁 ansibleディレクトリ構成例
 
 ```plaintext

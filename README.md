@@ -106,7 +106,7 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 構成はすべてAnsibleにより自動化されています。  
 実行結果の全体ログを以下にまとめています：
 
-📄 [▶ Ansible 実行ログを見る](./ansible-output.txt)
+📄 [▶ Ansible 実行ログを見る](./ansible_ec2_setup/ansible-output.txt)
 
 ---
 

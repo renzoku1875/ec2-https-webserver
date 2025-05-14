@@ -7,21 +7,6 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ---
 
-## 🔹 手動構築構成（LPICスキル活用）
-
-### 🛠 開発環境
-
-* Amazon EC2（Amazon Linux 2023）
-* Apache（Webサーバ）
-* お名前.com で取得した独自ドメイン
-* Certbot（Let's Encrypt）でHTTPS化 → 自動更新はcronで実施
-* Basic認証（.htpasswd）でログイン制限 → `/secret` のみに適用
-* fail2ban（SSHの攻撃対策）→ 5回ログイン失敗で一時BAN
-* goaccess（アクセスログのグラフ表示）
-* GitHub（コードと設定を管理）
-
----
-
 ### 🌐 サイトURL
 
 * [https://mytest-portfolio.xyz](https://mytest-portfolio.xyz)
@@ -56,6 +41,19 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 Webブラウザからアクセス解析の可視化が可能です。
 
 ---
+
+## 🔹 手動構築構成（LPICスキル活用）
+
+### 🛠 開発環境
+
+* Amazon EC2（Amazon Linux 2023）
+* Apache（Webサーバ）
+* お名前.com で取得した独自ドメイン
+* Certbot（Let's Encrypt）でHTTPS化 → 自動更新はcronで実施
+* Basic認証（.htpasswd）でログイン制限 → `/secret` のみに適用
+* fail2ban（SSHの攻撃対策）→ 5回ログイン失敗で一時BAN
+* goaccess（アクセスログのグラフ表示）
+* GitHub（コードと設定を管理）
 
 ### 📁 フォルダ構成（設定・Web・セキュリティ）
 
@@ -105,9 +103,15 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 
 ```plaintext
 ansible_ec2_setup/
-├── site.yml                    # メインプレイブック
-├── tasks/
-│   ├── setup_goaccess.yml      # goaccess関連設定
-│   └── setup_https_redirect.yml # HTTPSリダイレクト
-└── files/                      # 必要ファイル保管場所
+├── site.yml                    # 各構成をまとめて呼び出すメインプレイブック
+├── tasks/                      # 個別構成タスク
+│   ├── setup_apache.yml           # Apacheの導入と起動設定
+│   ├── setup_certbot.yml         # Certbotのインストール
+│   ├── setup_fail2ban.yml        # fail2banの導入と有効化
+│   ├── setup_htpasswd.yml        # .htpasswdを使ったBasic認証設定
+│   ├── setup_https_redirect.yml  # HTTP→HTTPSリダイレクト設定
+│   ├── setup_goaccess.yml        # goaccess導入とグラフ化
+│   └── setup_sshd_config.yml     # SSHのセキュリティ強化設定
+└── files/                      # 必要に応じて使う設定ファイルなど
+                  # 必要ファイル保管場所
 ```

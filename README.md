@@ -113,3 +113,11 @@ ansible_ec2_setup/
 │   ├── setup_goaccess.yml
 │   └── setup_sshd_config.yml
 └── files/                      # 設定ファイルなど
+---
+
+## ✅ Ansible 実行ログ
+
+構成はすべてAnsibleにより自動化されています。  
+実行結果の全体ログを以下にまとめています：
+
+📄 [▶ Ansible 実行ログを見る](./ansible-output.txt)

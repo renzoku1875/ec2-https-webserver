@@ -99,6 +99,15 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 * goaccessをソースからビルドして可視化ページ生成
 * HTTP→HTTPS リダイレクト設定
 
+---
+
+## ✅ Ansible 実行ログ
+
+構成はすべてAnsibleにより自動化されています。  
+実行結果の全体ログを以下にまとめています：
+
+📄 [▶ Ansible 実行ログを見る](./ansible-output.txt)
+
 ### 📁 ansibleディレクトリ構成例
 
 ```plaintext
@@ -114,10 +123,3 @@ ansible_ec2_setup/
 │   └── setup_sshd_config.yml
 └── files/                      # 設定ファイルなど
 ---
-
-## ✅ Ansible 実行ログ
-
-構成はすべてAnsibleにより自動化されています。  
-実行結果の全体ログを以下にまとめています：
-
-📄 [▶ Ansible 実行ログを見る](./ansible-output.txt)

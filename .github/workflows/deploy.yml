@@ -25,4 +25,4 @@ jobs:
             git pull
             ansible-playbook site.yml
           EOF
-
+# Trigger test

@@ -11,4 +11,7 @@
 - name: Apache 再起動（HTTPSリダイレクト設定後）
   systemd:
     name: httpd
-    state: restarted
+    state: restarte
+    
+    - name: 確認用ログ出力
+  command: echo "Redirect task ran!" >> /tmp/deploy_check.log

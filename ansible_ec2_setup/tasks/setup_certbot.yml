@@ -1,0 +1,5 @@
+# setup_certbot.yml
+- name: Certbot インストール
+  yum:
+    name: certbot
+    state: present

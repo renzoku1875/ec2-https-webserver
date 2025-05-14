@@ -1,0 +1,10 @@
+- name: fail2ban インストール
+  dnf:
+    name: fail2ban
+    state: present
+
+- name: fail2ban 起動と有効化
+  systemd:
+    name: fail2ban
+    enabled: true
+    state: started

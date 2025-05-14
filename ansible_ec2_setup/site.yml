@@ -1,45 +1,11 @@
-- hosts: localhost
+# site.yml
+- hosts: all
   become: true
-  vars:
-    domain_name: "mytest-portfolio.xyz"
-
   tasks:
-    - name: Apache インストール
-      yum:
-        name: httpd
-        state: present
-
-    - name: Apache 起動と有効化
-      systemd:
-        name: httpd
-        enabled: true
-        state: started
-
-    - name: Certbot インストール
-      yum:
-        name: certbot
-        state: present
-
-    - name: fail2ban インストール
-      dnf:
-        name: fail2ban
-        state: present
-
-    - name: .htpasswd 作成
-      community.general.htpasswd:
-        path: /etc/httpd/.htpasswd
-        name: admin
-        password: admin1234
-        crypt_scheme: bcrypt
-
-    - name: Apache 再起動
-      systemd:
-        name: httpd
-        state: restarted
-
-    - name: goaccess 関連タスクの読込
-      include_tasks: tasks/setup_goaccess.yml
-
-    - name: HTTPSリダイレクト設定
-      include_tasks: tasks/setup_https_redirect.yml
-
+    - import_tasks: tasks/setup_apache.yml
+    - import_tasks: tasks/setup_certbot.yml
+    - import_tasks: tasks/setup_fail2ban.yml
+    - import_tasks: tasks/setup_htpasswd.yml
+    - import_tasks: tasks/setup_https_redirect.yml
+    - import_tasks: tasks/setup_goaccess.yml
+    - import_tasks: tasks/setup_sshd_config.yml

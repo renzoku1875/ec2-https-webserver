@@ -1,0 +1,17 @@
+- name: SSH設定を変更（PermitRootLoginなど）
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin'
+    line: 'PermitRootLogin no'
+
+- name: SSH設定を変更（PasswordAuthentication）
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+
+- name: sshd 再起動
+  systemd:
+    name: sshd
+    state: restarted
+

@@ -1,15 +1,15 @@
+# ansible_ec2_setup/tasks/setup_certbot.yml
 - name: Certbot & Apache plugin install
-  dnf:
-    name:
-      - certbot
-      - python3-certbot-apache 
+  yum:
+    name: certbot-apache       
     state: present
 
-- name: Obtain/renew Let’s Encrypt cert (first run)
-  command: >
+- name: Obtain/renew Let’s Encrypt cert
+  command: >-
     certbot --apache -n --agree-tos
-            -m you@example.com
-            -d mytest-portfolio.xyz
+            -m {{ renzoku1875@gmail.com }}
+            -d {{ mytest-portfolio.xyz }}
   args:
-    creates: /etc/letsencrypt/live/mytest-portfolio.xyz/fullchain.pem
+    creates: /etc/letsencrypt/live/{{ mytest-portfolio }}/fullchain.pem
+  notify: reload httpd
 

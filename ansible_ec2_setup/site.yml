@@ -4,6 +4,7 @@
 
   vars:
     ansible_python_interpreter: /usr/bin/python3.9
+    domain_name: "mytest-portfolio.xyz"
 
   tasks:
     - import_tasks: tasks/setup_apache.yml

@@ -1,6 +1,10 @@
-# site.yml
+# ansible_ec2_setup/site.yml
 - hosts: all
   become: true
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.9
+
   tasks:
     - import_tasks: tasks/setup_apache.yml
     - import_tasks: tasks/setup_certbot.yml
@@ -9,3 +13,4 @@
     - import_tasks: tasks/setup_https_redirect.yml
     - import_tasks: tasks/setup_goaccess.yml
     - import_tasks: tasks/setup_sshd_config.yml
+

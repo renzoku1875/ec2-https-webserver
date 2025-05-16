@@ -1,5 +1,15 @@
-# setup_certbot.yml
-- name: Certbot インストール
-  yum:
-    name: certbot
+- name: Certbot & Apache plugin install
+  dnf:
+    name:
+      - certbot
+      - python3-certbot-apache 
     state: present
+
+- name: Obtain/renew Let’s Encrypt cert (first run)
+  command: >
+    certbot --apache -n --agree-tos
+            -m you@example.com
+            -d mytest-portfolio.xyz
+  args:
+    creates: /etc/letsencrypt/live/mytest-portfolio.xyz/fullchain.pem
+

@@ -1,5 +1,3 @@
-# ansible_ec2_setup/tasks/setup_certbot.yml
-
 - name: Certbot & Apache plugin install
   yum:
     name: certbot-apache

@@ -1,6 +1,7 @@
 # ansible_ec2_setup/site.yml
 - hosts: all
   become: true
+  connection: local
 
   vars:
     ansible_python_interpreter: /usr/bin/python3.9

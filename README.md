@@ -81,6 +81,7 @@ Webブラウザからアクセス解析の可視化が可能です。
 ├── jail.d/             # jailルール設定（例：sshd.conf）
 ├── filter.d/           # フィルタ定義（ログのパターン）
 ├── fail2ban.conf       # 本体設定
+```
 ⚙️ 自動化構成（Ansible + Route 53）
 Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理しています。
 
@@ -127,6 +128,7 @@ ansible_ec2_setup/
 .github/
 └── workflows/
     └── deploy.yml              # GitHub Actions ワークフロー定義
+```
 🚀 CI/CD（継続的インテグレーション & デプロイ）
 GitHub Actions を使って、以下のような CI/CDパイプラインを構築しています。
 

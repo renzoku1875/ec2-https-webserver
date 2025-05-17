@@ -130,28 +130,30 @@ ansible_ec2_setup/
 
 ---
 
-## 🚀 CI/CD（継続的デプロイ）の実装
+## 🚀 CI/CD（継続的インテグレーション & デプロイ）
 
 GitHub Actions を使って、以下のような **CI/CDパイプライン**を構築しています。
 
 ### ✅ 流れ
 
-1. GitHub の `main` ブランチに push されると自動でワークフローが起動
-2. GitHub Actions が EC2 に SSH 接続
-3. サーバ内で `ansible-playbook` を実行し、構成が反映される
+1. GitHub の `main` ブランチにコードが push されると、自動でワークフローが起動（CI）
+2. GitHub Actions が構成エラー（Ansibleの構文や設定ミス）をチェック
+3. 問題がなければ EC2 に SSH 接続（CD）
+4. `ansible-playbook` を実行し、構成が本番サーバに即時反映
 
 ### ✅ 特徴
 
-- `.github/workflows/deploy.yml` により構成
-- GitHub Secrets に SSH鍵・接続情報を安全に管理
-- EC2内で Ansible を実行することで構成の再現性を確保
-- 手動ログイン（TeraTerm）も併用可能な安全設計
+- `.github/workflows/deploy.yml` により自動実行
+- `ansible-playbook` によって構成の検証と反映を一括で処理
+- GitHub Secrets により SSH鍵・接続先情報を安全に管理
+- 手動ログイン（TeraTerm）とも併用可能な安全設計
+- CI（構成検証）＋ CD（自動反映）の両方を一貫して実現
 
 ### ✅ 使用技術
 
-- GitHub Actions（CI/CD）
+- GitHub Actions（CI/CDパイプライン）
 - Ansible（構成管理）
-- Amazon EC2（サーバ）
-- SSH秘密鍵（GitHub Secretsで安全連携）
+- Amazon EC2（本番環境）
+- SSH秘密鍵（Secrets管理で安全な接続）
 
 ---

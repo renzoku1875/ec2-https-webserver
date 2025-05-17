@@ -117,8 +117,9 @@ Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理�
 
 ```plaintext
 ansible_ec2_setup/
-├── site.yml                    # 各構成をまとめて呼び出すメインプレイブック
-├── tasks/                      # 個別構成タスク
+├── site.yml
+├── inventory                    # インベントリ（localhost指定）
+├── tasks/
 │   ├── setup_apache.yml
 │   ├── setup_certbot.yml
 │   ├── setup_fail2ban.yml
@@ -126,7 +127,12 @@ ansible_ec2_setup/
 │   ├── setup_https_redirect.yml
 │   ├── setup_goaccess.yml
 │   └── setup_sshd_config.yml
-└── files/                      # 設定ファイルなど
+├── files/
+├── ansible-output.txt
+
+.github/
+└── workflows/
+    └── deploy.yml              # GitHub Actionsワークフロー定義
 
 ---
 

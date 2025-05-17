@@ -69,7 +69,7 @@ Webブラウザからアクセス解析の可視化が可能です。
 ├── conf.modules.d/     # Apacheモジュール構成
 
 /etc/letsencrypt/
-├── live/               # 実際に使われる証明書（fullchain.pem, privkey.pem）
+├── live/               # 実際に使われる証明書
 ├── archive/            # 証明書の履歴（過去分）
 ├── renewal/            # 自動更新の設定ファイル
 ├── cli.ini             # certbot CLI設定
@@ -124,5 +124,31 @@ ansible_ec2_setup/
 │   ├── setup_goaccess.yml
 │   └── setup_sshd_config.yml
 └── files/                      # 設定ファイルなど
+
 ---
-# dummy update
+
+## 🚀 CI/CD（継続的デプロイ）の実装
+
+GitHub Actions を使って、以下のような **CI/CDパイプライン**を構築しています。
+
+### ✅ 流れ
+
+1. GitHub の `main` ブランチに push されると自動でワークフローが起動
+2. GitHub Actions が EC2 に SSH 接続
+3. サーバ内で `ansible-playbook` を実行し、構成が反映される
+
+### ✅ 特徴
+
+- `.github/workflows/deploy.yml` により構成
+- GitHub Secrets に SSH鍵・接続情報を安全に管理
+- EC2内で Ansible を実行することで構成の再現性を確保
+- 手動ログイン（TeraTerm）も併用可能な安全設計
+
+### ✅ 使用技術
+
+- GitHub Actions（CI/CD）
+- Ansible（構成管理）
+- Amazon EC2（サーバ）
+- SSH秘密鍵（GitHub Secretsで安全連携）
+
+---

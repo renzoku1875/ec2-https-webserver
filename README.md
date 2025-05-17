@@ -108,7 +108,7 @@ HTTP→HTTPS リダイレクト設定
 📄 ▶ Ansible 実行ログを見る
 
 📁 ansibleディレクトリ構成例
-plaintext
+```plaintext
 コピーする
 編集する
 ansible_ec2_setup/
@@ -140,23 +140,3 @@ GitHub Actions が構成エラー（Ansibleの構文や設定ミス）をチェ�
 問題がなければ EC2 に SSH 接続（CD）
 
 ansible-playbook を実行し、構成が本番サーバに即時反映
-
-✅ 特徴
-.github/workflows/deploy.yml により自動実行
-
-ansible-playbook によって構成の検証と反映を一括で処理
-
-GitHub Secrets により SSH鍵・接続先情報を安全に管理
-
-手動ログイン（TeraTerm）とも併用可能な安全設計
-
-CI（構成検証）＋ CD（自動反映）の両方を一貫して実現
-
-✅ 使用技術
-GitHub Actions（CI/CDパイプライン）
-
-Ansible（構成管理）
-
-Amazon EC2（本番環境）
-
-SSH秘密鍵（Secrets管理で安全な接続）

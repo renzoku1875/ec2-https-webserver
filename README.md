@@ -2,17 +2,17 @@
 
 ## 🔧 Webサイト作成・管理（HTTPS対応）
 
-LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作ってみた記録です。
+LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作ってみた記録です。  
 できるだけ実務に近い構成を自分で調べながら作りました。
 
 ---
 
 ### 🌐 サイトURL
 
-* [https://mytest-portfolio.xyz](https://mytest-portfolio.xyz)
-* [https://mytest-portfolio.xyz/secret](https://mytest-portfolio.xyz/secret)  - (Basic認証あり）
-* [https://mytest-portfolio.xyz/report.html](https://mytest-portfolio.xyz/report.html) - サンプルレポートページ
-  
+- [https://mytest-portfolio.xyz](https://mytest-portfolio.xyz)
+- [https://mytest-portfolio.xyz/secret](https://mytest-portfolio.xyz/secret)  - (Basic認証あり）
+- [https://mytest-portfolio.xyz/report.html](https://mytest-portfolio.xyz/report.html) - サンプルレポートページ
+
 ---
 
 ## 🗂 サーバ構成図
@@ -25,13 +25,13 @@ LPICを勉強して、実際にAWSのサーバ（EC2）でWebサイトを作っ�
 
 ### 🔐 セキュリティの工夫
 
-* HTTPアクセスはすべてHTTPSへ自動リダイレクト
-* `.htpasswd` を使って特定ページにログイン制限を設定
-* fail2banでSSH攻撃対策（5回失敗でIPブロック）
-* セキュリティグループ設定：22, 80, 443番ポートのみ開放
-* `/etc/ssh/sshd_config` にて `PermitRootLogin no` 設定済み（rootログイン無効化）
-* パスワードログインを無効化（`PasswordAuthentication no`）し、鍵認証のみに限定
-* IP直打ちアクセスは403で拒否（FQDNアクセスのみ許可）
+- HTTPアクセスはすべてHTTPSへ自動リダイレクト
+- `.htpasswd` を使って特定ページにログイン制限を設定
+- fail2banでSSH攻撃対策（5回失敗でIPブロック）
+- セキュリティグループ設定：22, 80, 443番ポートのみ開放
+- `/etc/ssh/sshd_config` にて `PermitRootLogin no` 設定済み（rootログイン無効化）
+- パスワードログインを無効化（`PasswordAuthentication no`）し、鍵認証のみに限定
+- IP直打ちアクセスは403で拒否（FQDNアクセスのみ許可）
 
 ---
 
@@ -49,14 +49,14 @@ Webブラウザからアクセス解析の可視化が可能です。
 
 ### 🛠 開発環境
 
-* Amazon EC2（Amazon Linux 2023）
-* Apache（Webサーバ）
-* お名前.com で取得した独自ドメイン
-* Certbot（Let's Encrypt）でHTTPS化 → 自動更新はcronで実施
-* Basic認証（.htpasswd）でログイン制限 → `/secret` のみに適用
-* fail2ban（SSHの攻撃対策）→ 5回ログイン失敗で一時BAN
-* goaccess（アクセスログのグラフ表示）
-* GitHub（コードと設定を管理）
+- Amazon EC2（Amazon Linux 2023）
+- Apache（Webサーバ）
+- お名前.com で取得した独自ドメイン
+- Certbot（Let's Encrypt）でHTTPS化 → 自動更新はcronで実施
+- Basic認証（.htpasswd）でログイン制限 → `/secret` のみに適用
+- fail2ban（SSHの攻撃対策）→ 5回ログイン失敗で一時BAN
+- goaccess（アクセスログのグラフ表示）
+- GitHub（コードと設定を管理）
 
 ### 📁 フォルダ構成（設定・Web・セキュリティ）
 
@@ -81,44 +81,38 @@ Webブラウザからアクセス解析の可視化が可能です。
 ├── jail.d/             # jailルール設定（例：sshd.conf）
 ├── filter.d/           # フィルタ定義（ログのパターン）
 ├── fail2ban.conf       # 本体設定
-```
-
----
-
-## ⚙️ 自動化構成（Ansible + Route 53）
-
+⚙️ 自動化構成（Ansible + Route 53）
 Ansibleでサーバ構築を自動化し、Route 53でDNS設定も一元管理しています。
 
-### 🛠 使用技術
+🛠 使用技術
+Ansible：Apache／fail2ban／goaccess／Basic認証を自動構成
 
-* **Ansible**：Apache／fail2ban／goaccess／Basic認証を自動構成
-* **Route 53**：Aレコード・NS・SOAなどを自動で管理し、ドメインとEC2を紐づけ
+Route 53：Aレコード・NS・SOAなどを自動で管理し、ドメインとEC2を紐づけ
 
-### ✅ 自動化で実現できること
+✅ 自動化で実現できること
+Apacheの自動インストール・HTTPS対応（Let's Encrypt）
 
-* Apacheの自動インストール・HTTPS対応（Let's Encrypt）
-* fail2banの導入と有効化
-* Basic認証の設定（.htpasswd生成）
-* goaccessをソースからビルドして可視化ページ生成
-* HTTP→HTTPS リダイレクト設定
+fail2banの導入と有効化
 
----
+Basic認証の設定（.htpasswd生成）
 
-## ✅ Ansible 実行ログ
+goaccessをソースからビルドして可視化ページ生成
 
-構成はすべてAnsibleにより自動化されています。  
+HTTP→HTTPS リダイレクト設定
+
+✅ Ansible 実行ログ
+構成はすべてAnsibleにより自動化されています。
 実行結果の全体ログを以下にまとめています：
 
-📄 [▶ Ansible 実行ログを見る](./ansible_ec2_setup/ansible-output.txt)
+📄 ▶ Ansible 実行ログを見る
 
----
-
-### 📁 ansibleディレクトリ構成例
-
-```plaintext
+📁 ansibleディレクトリ構成例
+plaintext
+コピーする
+編集する
 ansible_ec2_setup/
-├── site.yml
-├── inventory                    # インベントリ（localhost指定）
+├── site.yml                    # 各構成をまとめて呼び出すメインプレイブック
+├── inventory                   # インベントリ（localhost指定）
 ├── tasks/
 │   ├── setup_apache.yml
 │   ├── setup_certbot.yml
@@ -127,39 +121,40 @@ ansible_ec2_setup/
 │   ├── setup_https_redirect.yml
 │   ├── setup_goaccess.yml
 │   └── setup_sshd_config.yml
-├── files/
-├── ansible-output.txt
+├── files/                      # 設定ファイルなど
+└── ansible-output.txt          # Ansible 実行ログ
 
 .github/
 └── workflows/
-    └── deploy.yml              # GitHub Actionsワークフロー定義
+    └── deploy.yml              # GitHub Actions ワークフロー定義
+🚀 CI/CD（継続的インテグレーション & デプロイ）
+GitHub Actions を使って、以下のような CI/CDパイプラインを構築しています。
 
----
+✅ 流れ
+GitHub の main ブランチにコードが push されると、自動でワークフローが起動（CI）
 
-## 🚀 CI/CD（継続的インテグレーション & デプロイ）
+GitHub Actions が構成エラー（Ansibleの構文や設定ミス）をチェック
 
-GitHub Actions を使って、以下のような **CI/CDパイプライン**を構築しています。
+問題がなければ EC2 に SSH 接続（CD）
 
-### ✅ 流れ
+ansible-playbook を実行し、構成が本番サーバに即時反映
 
-1. GitHub の `main` ブランチにコードが push されると、自動でワークフローが起動（CI）
-2. GitHub Actions が構成エラー（Ansibleの構文や設定ミス）をチェック
-3. 問題がなければ EC2 に SSH 接続（CD）
-4. `ansible-playbook` を実行し、構成が本番サーバに即時反映
+✅ 特徴
+.github/workflows/deploy.yml により自動実行
 
-### ✅ 特徴
+ansible-playbook によって構成の検証と反映を一括で処理
 
-- `.github/workflows/deploy.yml` により自動実行
-- `ansible-playbook` によって構成の検証と反映を一括で処理
-- GitHub Secrets により SSH鍵・接続先情報を安全に管理
-- 手動ログイン（TeraTerm）とも併用可能な安全設計
-- CI（構成検証）＋ CD（自動反映）の両方を一貫して実現
+GitHub Secrets により SSH鍵・接続先情報を安全に管理
 
-### ✅ 使用技術
+手動ログイン（TeraTerm）とも併用可能な安全設計
 
-- GitHub Actions（CI/CDパイプライン）
-- Ansible（構成管理）
-- Amazon EC2（本番環境）
-- SSH秘密鍵（Secrets管理で安全な接続）
+CI（構成検証）＋ CD（自動反映）の両方を一貫して実現
 
----
+✅ 使用技術
+GitHub Actions（CI/CDパイプライン）
+
+Ansible（構成管理）
+
+Amazon EC2（本番環境）
+
+SSH秘密鍵（Secrets管理で安全な接続）
